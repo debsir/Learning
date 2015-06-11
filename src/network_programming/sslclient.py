@@ -14,7 +14,8 @@ sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 sock.connect((hostname, 443))
 
 ca_certs_path = os.path.join(os.path.dirname(scrip_name), 'certfiles.crt')
-sslsock = ssl.wrap_socket(sock, ssl_version=ssl.PROTOCOL_SSLv3,
+#The default ssl_version has been changed to PROTOCOL_SSLv23.
+sslsock = ssl.wrap_socket(sock, ssl_version=ssl.PROTOCOL_SSLv23,
                           cert_reqs=ssl.CERT_REQUIRED, ca_certs=ca_certs_path)
 
 try:
