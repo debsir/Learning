@@ -7,7 +7,7 @@ public class Person {
 
     Person() {
     }
-
+    
     Person(int age, String sex) {
         this.age = age;
         this.sex = sex;
@@ -16,6 +16,10 @@ public class Person {
     Person(int age, String sex, String name) {
         this(age, sex);
         this.name = name;
+    }
+
+    void introduce() {
+        System.out.println("I am " + species + ".");
     }
 
     static void die() {

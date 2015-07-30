@@ -3,6 +3,11 @@ class Student extends Person {
     String major;
 
     Student() {
-        super();
+    }
+
+    void introduce() {
+        super.introduce();
+        System.out.println("I major in " + major + ".");
+        System.out.println("I have got" + grade + ".");
     }
 }
