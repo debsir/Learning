@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/python
 # Fetch the weather forecast from the National Weather Service.
 
 import sys, urllib, urllib2
