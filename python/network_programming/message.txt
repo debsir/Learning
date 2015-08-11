@@ -1,0 +1,12 @@
+To: recipient@example.com
+From: Test Sender <sender@example.com>
+Subject: Test Message, Chapter 12
+Date: Mon, 10 Aug 2015 11:20:02 +0800
+Message-ID: <20150810032002.12445.87351@workbox>
+
+Hello,
+
+This is a test message from Chapter 12. I hope you enjoy it!
+
+---Anonymous
+
