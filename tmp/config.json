@@ -1,0 +1,8 @@
+{
+    "server":["106.185.40.34"],
+    "server_port":23145,
+    "local_port":1080,
+    "password":"t8cx2hak8m",
+    "timeout":60,
+	"method":"aes-256-cfb"
+}
