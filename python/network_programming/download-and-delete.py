@@ -7,7 +7,6 @@ if len(sys.argv) != 3:
     print 'usage: %s hostname username' % sys.argv[0]
     exit(2)
 hostname, user = sys.argv[1:]
-
 passwd = getpass.getpass()
 
 p = poplib.POP3_SSL(hostname)
@@ -28,16 +27,10 @@ else:
             if header in message:
                 print header + ':', message[header]
         print
-        response, lines, octets = p.top(number, 0)
-        message = email.message_from_string('\n'.join(lines))
-        for header in 'From', 'To', 'Subject', 'Date':
-            if header in message:
-                print header + ':', message[header]
-        print
         print 'Read this message [y/n]?'
         answer = raw_input()
         if answer.lower().startswith('y'):
-            response, lines, octets = p.repr(number)
+            response, lines, octets = p.retr(number)
             message = email.message_from_string('\n'.join(lines))
             print '-' * 72
             for part in message.walk():
