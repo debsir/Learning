@@ -35,7 +35,7 @@ def fetchRecord():
     except:
         showerror(title='Error', message='No such key!')
     else:
-        for field in  fieldnames:
+        for field in fieldnames:
             entries[field].delete(0, END)
             entries[field].insert(0, repr(getattr(record, field)))
 

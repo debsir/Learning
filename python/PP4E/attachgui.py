@@ -9,8 +9,8 @@ Label(mainwin, text=__name__).pack()
 
 # popup window
 popup = Toplevel()
-Label(popup, text='Attach').pack(side=RIGHT)
-MyGui(popup).pack(side=LEFT)
+Label(popup, text='Attach').pack(side=LEFT)
+MyGui(popup).pack(side=RIGHT)
 mainwin.mainloop()
 
 
