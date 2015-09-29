@@ -6,6 +6,7 @@ class Kindle extends com.linux.Book {
 	
 	void publish() {
 		System.out.println("E-books are published differently.");
+        System.out.println("I love my kindle.");
 	}
 
 }
