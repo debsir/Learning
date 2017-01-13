@@ -6,11 +6,10 @@ pages = set()
 def getLinks(pageUrl):
     global pages
     html = urlopen('http://en.wikipedia.org'+pageUrl)
-    html = urlopen(url)
     bsObj = BeautifulSoup(html, 'lxml')
     try:
         print(bsObj.h1.get_text())
-        print(bsObj.find(id='mw-content-text').findAll('p')[0]
+        print(bsObj.find(id='mw-content-text').findAll('p')[0])
         print(bsObj.find(id='ca-edit').find('span').find('a').attrs['href'])
     except AttributeError:
         print('This page is missing something! No worries though!')
