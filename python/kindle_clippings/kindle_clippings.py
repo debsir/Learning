@@ -1,22 +1,41 @@
 #!/usr/bin/python
-# coding=utf-8
 import sys, re, sqlite3
-from itertools import islice
 from datetime import datetime
 
-def grab_time(line):
+pattern = re.compile(r'(.*?)\n- High.*?(\d+\w\d+\w\d+\w.*?\d+\w\d+\w\d+\w).*?\n\n(.*?)\n==========\n')
+
+def grab_time(raw_time):
     # Grab date and time
     dt_obj = re.compile(r'(\d+)\w(\d+)\w(\d+)\w')
-    date, time = dt_obj.findall(line)
+    date, time = dt_obj.findall(raw_time)
     date = '-'.join(date)
-    if '上午' in line:
+    if '上午' in raw_time:
         time = ':'.join(time) + ' ' + 'AM'
     else:
         time = ':'.join(time) + ' ' + 'PM'
     date_time = datetime.strptime(date + ' ' + time, '%Y-%m-%d %I:%M:%S %p')
-    date_time = date_time.strftime('%Y-%m-%d %H:%M:%S')
-    return date_time
+    return date_time.strftime('%Y-%m-%d %H:%M:%S')
+            
+if __name__ == '__main__':
+    clip_array = []
+    with open('Kindle_Clippings.txt', 'r') as f:
+        clip = f.read()
+    raw_data = pattern.findall(clip)
+    for slice in raw_data:
+        source = slice[0]
+        date_time = grab_time(slice[1])
+        content = slice[2]
+        clip_array.append((source, date_time, content))
 
+    conn = sqlite3.connect('kindle_clippings.db')
+    c = conn.cursor()
+    c.execute('''CREATE TABLE clip 
+                    (source text, data_time real UNIQUE, content text)''')
+    c.executemany('INSERT OR IGNORE INTO clip VALUES (?,?,?)', clip_array)
+    conn.commit()
+    conn.close()
+
+"""
 if __name__ == '__main__':
     clip_array = []
     with open('Kindle_Clippings.txt', 'r') as f:
@@ -28,14 +47,4 @@ if __name__ == '__main__':
             content = next(f)
             next(f)
             clip_array.append((source, date_time, content))
-            
-    conn = sqlite3.connect('kindle_clippings.db')
-    c = conn.cursor()
-    try:
-        c.executemany('INSERT OR IGNORE INTO sms VALUES (?,?,?)', clip_array)
-    except OperationalError:
-        c.execute('''CREATE TABLE sms
-                    (source text, data_time real UNIQUE, content text)''')
-        c.executemany('INSERT OR IGNORE INTO sms VALUES (?,?,?)', clip_array)
-    conn.commit()
-    conn.close()
+"""
