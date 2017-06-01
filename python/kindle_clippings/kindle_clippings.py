@@ -23,10 +23,13 @@ if __name__ == '__main__':
         for line in f:
             source = line.strip()
             line = next(f)
-            date_time = grab_time(line)
+            if line.startswith('- Highlight'):
+                date_time = grab_time(line)
             next(f)
             content = next(f)
-            next(f)
+            if len(content) == 0:
+                next(f)
+                continue
             clip_array.append((source, date_time, content))
             
     conn = sqlite3.connect('kindle_clippings.db')
